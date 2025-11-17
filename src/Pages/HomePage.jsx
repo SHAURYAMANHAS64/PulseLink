@@ -102,7 +102,7 @@ export default function HomePage() {
           </motion.p>
           <motion.div variants={fadeIn}>
             <Link
-              to="/login"
+              to="/dashboard"
               className="mt-8 inline-block bg-[#00ff85] text-black font-bold py-3 px-8 rounded-md text-lg hover:transform hover:-translate-y-1 hover:shadow-xl hover:shadow-[#00ff85]/30 transition-all"
             >
               Get Started
