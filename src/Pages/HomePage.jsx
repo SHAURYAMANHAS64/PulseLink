@@ -59,6 +59,10 @@ export default function HomePage() {
                 <a href="#how-it-works" className="text-base font-semibold hover:text-[#00ff85] transition-colors">How It Works</a>
               </li>
               <li>
+             <a href="/contact">Contact</a>
+              </li>
+
+              <li>
                 <Link
                   to="/login"
                   className="bg-transparent border-2 border-[#00ff85] text-white font-semibold py-2 px-6 rounded-md hover:bg-[#00ff85] hover:text-black transition-all"
