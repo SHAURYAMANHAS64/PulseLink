@@ -30,7 +30,7 @@ const AppNavbar = () => {
           </button>
           
           <Link 
-            to="/profile"
+            to="/login"
             className="h-10 w-10 flex items-center justify-center rounded-full hover:bg-green-400/10 hover:text-green-400 transition-all"
             aria-label="Profile"
           >
