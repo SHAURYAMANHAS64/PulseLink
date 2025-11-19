@@ -107,30 +107,49 @@ export default function LoginPage() {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
+  const persistUser = (user) => {
+    try {
+      localStorage.setItem('user', JSON.stringify(user));
+    } catch (err) {
+      console.error('Failed to persist user', err);
+    }
+  };
+
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
-      // On success, redirect to the main app dashboard
+
+      // persist user (use email local part as name if no backend)
+      const name = formData.loginEmail ? formData.loginEmail.split('@')[0] : 'User';
+      const user = { name, email: formData.loginEmail };
+      persistUser(user);
+
       navigate('/dashboard');
-    }, 2000);
+    }, 1200);
   };
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
     if(formData.signupPassword !== formData.confirmPassword) {
-      alert("Passwords do not match!"); // In a real app, use a proper toast notification
+      alert("Passwords do not match!");
       return;
     }
     setIsLoading(true);
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
-      alert("Account created! Please sign in.");
-      setIsLogin(true); // Switch to login form
-    }, 2000);
+
+      // persist new user
+      const name = formData.signupName || (formData.signupEmail ? formData.signupEmail.split('@')[0] : 'User');
+      const user = { name, email: formData.signupEmail };
+      persistUser(user);
+
+      // after signup, go to dashboard (or to login page as desired)
+      navigate('/dashboard');
+    }, 1200);
   };
 
   return (
