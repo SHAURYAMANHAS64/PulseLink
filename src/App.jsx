@@ -5,6 +5,7 @@ import DashboardPage from './Pages/DashboardPage';
 import ExercisesPage from './Pages/ExercisesPage';
 import ExerciseDetailPage from './Pages/ExerciseDetailPage';
 import Contact from './Pages/Contact';
+import ProgramPage from './Pages/Program';
 function App() {
   return (
     <BrowserRouter >
@@ -16,6 +17,7 @@ function App() {
         <Route path="/exercise/:id" element={<ExerciseDetailPage />} />
         <Route path="*" element={<Navigate to="/" />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/program" element={<ProgramPage />} />
       </Routes>
     </BrowserRouter>
   );

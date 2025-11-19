@@ -29,7 +29,7 @@ const AppNavbar = () => {
 
           <nav className="hidden md:flex items-center space-x-6">
             <Link to="/exercises" className="hover:text-green-400 transition-colors">Exercises</Link>
-            <a href="https://www.youtube.com/playlist?list=PL5qo1Sl2GW3cMiepxpnY3vjo7MPM-ejBh" target='blank'>
+            <a href="/program" target='blank'>
               <p className="hover:text-green-400 transition-colors cursor-pointer">Programs</p>
             </a>
             <a href="https://www.youtube.com/@DrEducationFITNESS/videos" target='blank'>
