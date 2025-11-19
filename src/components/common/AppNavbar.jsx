@@ -1,8 +1,23 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const AppNavbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  // Load user from localStorage
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) setUser(JSON.parse(savedUser));
+  }, []);
+
+  // Logout
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    navigate("/login");
+  };
 
   return (
     <header className="bg-[#111827]/90 backdrop-blur-lg fixed top-0 left-0 w-full z-50 py-4 shadow-lg">
@@ -11,15 +26,25 @@ const AppNavbar = () => {
           <Link to="/dashboard" className="text-2xl font-bold hover:text-green-400 transition-colors">
             PulseLink
           </Link>
+
           <nav className="hidden md:flex items-center space-x-6">
             <Link to="/exercises" className="hover:text-green-400 transition-colors">Exercises</Link>
-            <Link to="/programs" className="hover:text-green-400 transition-colors">Programs</Link>
-            <Link to="/nutrition" className="hover:text-green-400 transition-colors">Nutrition</Link>
-            <Link to="/community" className="hover:text-green-400 transition-colors">Community</Link>
+            <a href="https://www.youtube.com/playlist?list=PL5qo1Sl2GW3cMiepxpnY3vjo7MPM-ejBh" target='blank'>
+              <p className="hover:text-green-400 transition-colors cursor-pointer">Programs</p>
+            </a>
+            <a href="https://www.youtube.com/@DrEducationFITNESS/videos" target='blank'>
+              <p className="hover:text-green-400 transition-colors cursor-pointer">Nutrition</p>
+            </a>
+            <a href="https://www.youtube.com/@Hamza97" target='blank'>
+              <p className="hover:text-green-400 transition-colors cursor-pointer">Community</p>
+            </a>
+            
           </nav>
         </div>
 
         <div className="flex items-center space-x-4">
+
+          {/* Notification Icon */}
           <button 
             className="h-10 w-10 flex items-center justify-center rounded-full hover:bg-green-400/10 hover:text-green-400 transition-all"
             aria-label="Notifications"
@@ -28,18 +53,32 @@ const AppNavbar = () => {
               <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
             </svg>
           </button>
-          
-          <Link 
-            to="/login"
-            className="h-10 w-10 flex items-center justify-center rounded-full hover:bg-green-400/10 hover:text-green-400 transition-all"
-            aria-label="Profile"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <path d="M5.121 17.804A9 9 0 1118.879 17.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-          </Link>
 
-          {/* Mobile Menu Button */}
+          {/* USER DISPLAY */}
+          {user ? (
+            <div className="flex items-center space-x-3">
+              <span className="text-white font-medium">Hi, {user.name}</span>
+
+              <button 
+                onClick={handleLogout}
+                className="px-3 py-1 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-all text-sm"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <Link 
+              to="/login"
+              className="h-10 w-10 flex items-center justify-center rounded-full hover:bg-green-400/10 hover:text-green-400 transition-all"
+              aria-label="Profile"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path d="M5.121 17.804A9 9 0 1118.879 17.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </Link>
+          )}
+
+          {/* Mobile Menu */}
           <button
             className="md:hidden h-10 w-10 flex items-center justify-center rounded-full hover:bg-green-400/10 hover:text-green-400 transition-all"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

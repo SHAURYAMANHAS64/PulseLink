@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AppNavbar from '../components/common/AppNavbar';
 import WeeklyTracker from '../components/dashboard/WeeklyTracker';
 import { motion } from 'framer-motion';
@@ -16,8 +16,6 @@ const CategoryItem = ({ name, icon }) => (
 
 export default function DashboardPage() {
     const [error, setError] = useState(null);
-    const [user, setUser] = useState(null);
-    const navigate = useNavigate();
 
     const categories = [
         { name: "cardio", icon: "fas fa-running" },
@@ -28,41 +26,9 @@ export default function DashboardPage() {
         { name: "hiit", icon: "fas fa-bolt" }
     ];
 
-    useEffect(() => {
-      try {
-        const raw = localStorage.getItem('user');
-        if (raw) setUser(JSON.parse(raw));
-      } catch (err) {
-        console.error('Failed to read user from localStorage', err);
-      }
-    }, []);
-
-    const handleLogout = () => {
-      localStorage.removeItem('user');
-      setUser(null);
-      navigate('/login');
-    };
-
     return (
         <div className="bg-[#111827] text-white font-sans min-h-screen">
             <AppNavbar/>
-
-            {/* small user bar */}
-            <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-end gap-4">
-              {user ? (
-                <div className="flex items-center gap-3">
-                  <span className="text-sm text-gray-300">Welcome, <span className="font-semibold text-green-400">{user.name}</span></span>
-                  <button
-                    onClick={handleLogout}
-                    className="text-sm bg-transparent border border-gray-700 px-3 py-1 rounded-md hover:bg-gray-700/40 transition"
-                  >
-                    Logout
-                  </button>
-                </div>
-              ) : (
-                <Link to="/login" className="text-sm text-gray-300 hover:text-white">Sign in</Link>
-              )}
-            </div>
 
             {/* Hero Section with Gradient Overlay */}
             <section className="relative h-[80vh] overflow-hidden flex items-center justify-center">
