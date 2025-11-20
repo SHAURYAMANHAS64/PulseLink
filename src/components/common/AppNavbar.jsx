@@ -32,10 +32,10 @@ const AppNavbar = () => {
             <a href="/program" target='blank'>
               <p className="hover:text-green-400 transition-colors cursor-pointer">Programs</p>
             </a>
-            <a href="https://www.youtube.com/@DrEducationFITNESS/videos" target='blank'>
+            <a href="/nutrition" target='blank'>
               <p className="hover:text-green-400 transition-colors cursor-pointer">Nutrition</p>
             </a>
-            <a href="https://www.youtube.com/@Hamza97" target='blank'>
+            <a href="https://www.reddit.com/r/WorkoutRoutines/" target='blank'>
               <p className="hover:text-green-400 transition-colors cursor-pointer">Community</p>
             </a>
             

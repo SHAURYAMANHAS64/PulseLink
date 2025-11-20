@@ -6,6 +6,7 @@ import ExercisesPage from './Pages/ExercisesPage';
 import ExerciseDetailPage from './Pages/ExerciseDetailPage';
 import Contact from './Pages/Contact';
 import ProgramPage from './Pages/Program';
+import NutritionPage from './Pages/Nutrition';
 function App() {
   return (
     <BrowserRouter >
@@ -18,6 +19,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/program" element={<ProgramPage />} />
+        <Route path="/nutrition" element={<NutritionPage />} />
       </Routes>
     </BrowserRouter>
   );
