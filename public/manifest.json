@@ -1,0 +1,78 @@
+{
+  "name": "PulseLink - Fitness Companion",
+  "short_name": "PulseLink",
+  "description": "Your ultimate fitness tracking and workout companion",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#00ff85",
+  "background_color": "#111827",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/screenshot-1.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshots/screenshot-2.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "categories": ["health", "fitness", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Start Workout",
+      "short_name": "Workout",
+      "description": "Start a new workout session",
+      "url": "/exercises",
+      "icons": [
+        {
+          "src": "/icons/workout-icon.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "short_name": "Stats",
+      "description": "View your fitness statistics",
+      "url": "/dashboard",
+      "icons": [
+        {
+          "src": "/icons/stats-icon.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
