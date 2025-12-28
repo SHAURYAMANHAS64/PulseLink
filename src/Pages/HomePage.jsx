@@ -64,6 +64,15 @@ export default function HomePage() {
 
               <li>
                 <Link
+                  to="/dashboard"
+                  className="bg-[#00ff85] text-black font-semibold py-2 px-6 rounded-md hover:bg-[#00dd6f] transition-all"
+                >
+                  Dashboard
+                </Link>
+              </li>
+
+              <li>
+                <Link
                   to="/login"
                   className="bg-transparent border-2 border-[#00ff85] text-white font-semibold py-2 px-6 rounded-md hover:bg-[#00ff85] hover:text-black transition-all"
                 >
