@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import axios from 'axios';
-
-const API_URL = 'http://localhost:5000/graphql';
+import { authService } from '../services/authService.js';
 
 // Loading Spinner Component
 const LoadingSpinner = () => (
@@ -78,31 +76,17 @@ export default function LoginPage() {
     setError('');
 
     try {
-      const mutation = `
-        mutation {
-          login(email: "${formData.loginEmail}", password: "${formData.loginPassword}") {
-            success
-            message
-            token
-            user { id, name, email, role }
-          }
-        }
-      `;
+      const response = await authService.login(formData.loginEmail, formData.loginPassword);
 
-      const response = await axios.post(API_URL, { query: mutation });
-
-      if (response.data.errors) {
-        setError(response.data.errors[0].message || 'Login failed');
-      } else if (response.data.data?.login?.success) {
-        const { token, user } = response.data.data.login;
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
+      if (response.success) {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
         navigate('/dashboard');
       } else {
-        setError(response.data.data?.login?.message || 'Login failed');
+        setError(response.message || 'Login failed');
       }
     } catch (err) {
-      setError(err.response?.data?.errors?.[0]?.message || 'Connection error. Is the backend running?');
+      setError(err.message || 'Login failed');
     } finally {
       setIsLoading(false);
     }
@@ -120,31 +104,21 @@ export default function LoginPage() {
     }
 
     try {
-      const mutation = `
-        mutation {
-          register(name: "${formData.signupName}", email: "${formData.signupEmail}", password: "${formData.signupPassword}") {
-            success
-            message
-            token
-            user { id, name, email, role }
-          }
-        }
-      `;
+      const response = await authService.register(
+        formData.signupName,
+        formData.signupEmail,
+        formData.signupPassword
+      );
 
-      const response = await axios.post(API_URL, { query: mutation });
-
-      if (response.data.errors) {
-        setError(response.data.errors[0].message || 'Registration failed');
-      } else if (response.data.data?.register?.success) {
-        const { token, user } = response.data.data.register;
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
+      if (response.success) {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
         navigate('/dashboard');
       } else {
-        setError(response.data.data?.register?.message || 'Registration failed');
+        setError(response.message || 'Registration failed');
       }
     } catch (err) {
-      setError(err.response?.data?.errors?.[0]?.message || 'Connection error. Is the backend running?');
+      setError(err.message || 'Registration failed');
     } finally {
       setIsLoading(false);
     }
@@ -277,11 +251,11 @@ export default function LoginPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="mt-8 bg-blue-500/10 border border-blue-500/30 rounded p-4 text-sm text-blue-200"
+          className="mt-8 bg-green-500/10 border border-green-500/30 rounded p-4 text-sm text-green-200"
         >
-          <p className="font-bold mb-2">🔧 Backend Integration Active</p>
-          <p>This login form connects to your Express.js backend running on port 5000.</p>
-          <p className="mt-2">Make sure the backend is running on http://localhost:5000</p>
+          <p className="font-bold mb-2">✅ Local Mode Active</p>
+          <p>Sign up and login work locally without a backend server.</p>
+          <p className="mt-2">Your data is stored in your browser's localStorage.</p>
         </motion.div>
       </motion.div>
     </div>

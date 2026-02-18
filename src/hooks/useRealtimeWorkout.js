@@ -1,60 +1,20 @@
-import { useEffect, useState } from 'react';
-import io from 'socket.io-client';
+// Mock real-time workout hook - no backend connection required
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWifi, faWifiSlash } from '@fortawesome/free-solid-svg-icons';
 
-const SOCKET_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
+// Mock implementation - returns offline state
 export const useRealtimeWorkout = (workoutId) => {
-  const [socket, setSocket] = useState(null);
-  const [isConnected, setIsConnected] = useState(false);
-  const [workoutData, setWorkoutData] = useState(null);
-  const [activeUsers, setActiveUsers] = useState([]);
-
-  useEffect(() => {
-    const newSocket = io(SOCKET_URL, {
-      transports: ['websocket', 'polling'],
-      reconnectionDelay: 1000,
-      reconnection: true,
-      reconnectionDelayMax: 5000,
-      reconnectionAttempts: 5
-    });
-
-    newSocket.on('connect', () => {
-      setIsConnected(true);
-      newSocket.emit('join-workout', workoutId);
-    });
-
-    newSocket.on('disconnect', () => {
-      setIsConnected(false);
-    });
-
-    newSocket.on('update', (data) => {
-      setWorkoutData(data);
-    });
-
-    newSocket.on('user-joined', (userId) => {
-      setActiveUsers(prev => [...new Set([...prev, userId])]);
-    });
-
-    setSocket(newSocket);
-
-    return () => {
-      newSocket.disconnect();
-    };
-  }, [workoutId]);
+  const [isConnected] = useState(false);
+  const [workoutData] = useState(null);
+  const [activeUsers] = useState([]);
 
   const sendUpdate = (data) => {
-    if (socket && isConnected) {
-      socket.emit('workout-update', {
-        workoutId,
-        ...data
-      });
-    }
+    console.log('Mock sendUpdate (no backend):', { workoutId, ...data });
   };
 
-  return { socket, isConnected, workoutData, activeUsers, sendUpdate };
+  return { socket: null, isConnected, workoutData, activeUsers, sendUpdate };
 };
 
 export const RealtimeWorkoutStatus = ({ workoutId }) => {
@@ -71,7 +31,7 @@ export const RealtimeWorkoutStatus = ({ workoutId }) => {
           icon={isConnected ? faWifi : faWifiSlash}
           className={isConnected ? 'text-green-500' : 'text-red-500'}
         />
-        <span className={isConnected ? 'text-green-400' : 'text-red-400'} className="text-sm">
+        <span className={`text-sm ${isConnected ? 'text-green-400' : 'text-red-400'}`}>
           {isConnected ? 'Live' : 'Offline'}
         </span>
       </div>

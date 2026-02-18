@@ -12,7 +12,7 @@ export default function TestApp() {
     }}>
       <div>
         <h1>✅ PulseLink Frontend is Running!</h1>
-        <p style={{ fontSize: '18px', marginTop: '20px' }}>Backend: http://localhost:5000</p>
+        <p style={{ fontSize: '18px', marginTop: '20px' }}>Mode: Local (no backend required)</p>
         <p style={{ fontSize: '18px' }}>Frontend: http://localhost:5173</p>
       </div>
     </div>

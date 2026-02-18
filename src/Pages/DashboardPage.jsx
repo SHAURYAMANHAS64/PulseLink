@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import axios from 'axios';
-
-const API_URL = 'http://localhost:5000/graphql';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -183,7 +180,7 @@ export default function DashboardPage() {
       {/* Footer */}
       <footer className="border-t border-green-500/20 mt-20 py-8 text-center text-gray-400">
         <p>PulseLink © 2025 - Your Fitness Journey Starts Here</p>
-        <p className="text-sm mt-2">Backend: Express.js + GraphQL | Frontend: React + Zustand</p>
+        <p className="text-sm mt-2">React + Vite | Local Mode</p>
       </footer>
     </div>
   );
