@@ -1,34 +1,13 @@
-import * as Sentry from "@sentry/react";
-import { BrowserTracing } from "@sentry/tracing";
+// Mock monitoring service - Sentry removed for React 19 compatibility
+// Add your own monitoring solution here if needed
 
-const SENTRY_DSN = import.meta.env.VITE_SENTRY_DSN;
-const ENVIRONMENT = import.meta.env.MODE;
+const mockSentry = {
+  init: () => {},
+  captureException: (error) => console.error('Error captured:', error),
+  captureMessage: (message) => console.log('Message captured:', message),
+  setUser: () => {},
+  setTag: () => {},
+  withScope: (callback) => callback({ setTag: () => {}, setExtra: () => {} }),
+};
 
-if (SENTRY_DSN) {
-  Sentry.init({
-    dsn: SENTRY_DSN,
-    integrations: [
-      new BrowserTracing(),
-      new Sentry.Replay({
-        maskAllText: true,
-        blockAllMedia: true,
-      }),
-    ],
-    environment: ENVIRONMENT,
-    tracesSampleRate: ENVIRONMENT === 'production' ? 0.1 : 1.0,
-    replaysSessionSampleRate: ENVIRONMENT === 'production' ? 0.1 : 1.0,
-    replaysOnErrorSampleRate: 1.0,
-    beforeSend(event, hint) {
-      // Filter out certain errors
-      if (event.exception) {
-        const error = hint.originalException;
-        if (error?.message?.includes('ResizeObserver')) {
-          return null;
-        }
-      }
-      return event;
-    },
-  });
-}
-
-export default Sentry;
+export default mockSentry;
