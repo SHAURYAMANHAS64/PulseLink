@@ -24,14 +24,14 @@ const app = express();
 const httpServer = createServer(app);
 const io = new SocketServer(httpServer, {
   cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: [process.env.FRONTEND_URL || "http://localhost:5173", "http://localhost:5174"],
     credentials: true
   }
 });
 
 // Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:5173",
+  origin: [process.env.FRONTEND_URL || "http://localhost:5173", "http://localhost:5174"],
   credentials: true
 }));
 app.use(rateLimiter(100, 15 * 60 * 1000)); // 100 requests per 15 minutes
@@ -189,7 +189,12 @@ const resolvers = {
         return {
           success: true,
           token,
-          user: user.toJSON(),
+          user: {
+            id: user._id.toString(),
+            name: user.name,
+            email: user.email,
+            role: user.role
+          },
           message: "Registration successful"
         };
       } catch (error) {
@@ -222,7 +227,12 @@ const resolvers = {
         return {
           success: true,
           token,
-          user: user.toJSON(),
+          user: {
+            id: user._id.toString(),
+            name: user.name,
+            email: user.email,
+            role: user.role
+          },
           message: "Login successful"
         };
       } catch (error) {
